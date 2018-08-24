@@ -1,0 +1,3 @@
+shot_instance.position = position + Vector2(9,-5)
+#		stage_node.add_child(shot_instance)
+#		shot_instance = shot_scene.instance()

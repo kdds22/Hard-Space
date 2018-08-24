@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/stage.gd" type="Script" id=1]
+[ext_resource path="res://sprites/background.png" type="Texture" id=2]
+[ext_resource path="res://scripts/background.gd" type="Script" id=3]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/hour5.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://sprites/UI_SpaceShooter.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 15
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[node name="stage" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+centered = false
+script = ExtResource( 3 )
+_sections_unfolded = [ "Offset" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="spawn_timer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[node name="shake_timer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = true
+
+[node name="player" parent="." index="3" instance=ExtResource( 4 )]
+
+position = Vector2( 43.8907, 86.3185 )
+
+[node name="ui" type="CanvasLayer" parent="." index="4"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="score" type="Label" parent="ui" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -18.0
+margin_top = 10.0
+margin_right = 58.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.435294, 1, 0.733333, 1 )
+custom_colors/font_color_shadow = Color( 0.184314, 0.121569, 0.278431, 1 )
+text = "0"
+align = 1
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
+
+[node name="retry" type="Label" parent="ui" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 34.0
+margin_top = 70.0
+margin_right = 286.0
+margin_bottom = 107.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.435294, 1, 0.733333, 1 )
+custom_colors/font_color_shadow = Color( 0.184314, 0.121569, 0.278431, 1 )
+text = "game over
+-press the enter key to retry-"
+align = 1
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="TextureRect" type="TextureRect" parent="ui" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 85.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 6 )
+stretch_mode = 3
+_sections_unfolded = [ "Rect" ]
+
+[connection signal="timeout" from="shake_timer" to="." method="_on_shake_timer_timeout"]
+
+
